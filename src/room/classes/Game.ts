@@ -129,13 +129,13 @@ export default class Game extends WithStateStore<GameStore, keyof GameStore> {
     if (this._isPaused) {
       setTimeout(() => {
         this._canStartSnapPlay = true;
-      }, 4000);
+      }, 2000);
       return;
     }
 
     setTimeout(() => {
       this._canStartSnapPlay = true;
-    }, 2000);
+    }, 1000);
   }
 
   /**

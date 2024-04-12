@@ -91,7 +91,7 @@ export default class Down {
 
   getSnapPosition() {
     const x = new DistanceCalculator()
-      .subtractByTeam(this._los.x, MAP_POINTS.YARD * 5, Room.game.offenseTeamId)
+      .subtractByTeam(this._los.x, MAP_POINTS.YARD * 3, Room.game.offenseTeamId)
       .calculate();
 
     return {

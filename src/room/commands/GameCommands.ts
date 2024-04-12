@@ -9,7 +9,6 @@ import Ball from "../roomStructures/Ball";
 import Chat from "../roomStructures/Chat";
 import Room from "../roomStructures/Room";
 import PreSetCalculators from "../structures/PreSetCalculators";
-import COLORS from "../utils/colors";
 import { quickPause } from "../utils/haxUtils";
 import ICONS from "../utils/Icons";
 import { GameCommandError } from "./GameCommandHandler";
@@ -68,96 +67,96 @@ const gameCommandsMap = new Map<string, GameCommand>([
       },
     },
   ],
-  [
-    "cp",
-    {
-      showCommand: false,
-      permissions: {
-        adminLevel: 0,
-        onlyOffense: true,
-        onlyDuringNoPlay: true,
-        canRunDuringTwoPointAttempt: true,
-      },
-      run(player) {
-        const offensePlayers = Room.game.players.getOffense();
+  // [
+  //   "cp",
+  //   {
+  //     showCommand: false,
+  //     permissions: {
+  //       adminLevel: 0,
+  //       onlyOffense: true,
+  //       onlyDuringNoPlay: true,
+  //       canRunDuringTwoPointAttempt: true,
+  //     },
+  //     run(player) {
+  //       const offensePlayers = Room.game.players.getOffense();
 
-        const isAlreadyCurvePass = Room.game.stateExists("curvePass");
+  //       const isAlreadyCurvePass = Room.game.stateExists("curvePass");
 
-        if (isAlreadyCurvePass) {
-          Room.game.deleteState("curvePass");
+  //       if (isAlreadyCurvePass) {
+  //         Room.game.deleteState("curvePass");
 
-          // Inform team members of the command
-          offensePlayers.forEach((teamPlayer) => {
-            Chat.send(`${ICONS.Frisbee} Curve pass disabled`, {
-              id: teamPlayer.id,
-              color: COLORS.Gray,
-            });
-          });
-          return;
-        }
-        Room.game.setState("curvePass");
+  //         // Inform team members of the command
+  //         offensePlayers.forEach((teamPlayer) => {
+  //           Chat.send(`${ICONS.Frisbee} Curve pass disabled`, {
+  //             id: teamPlayer.id,
+  //             color: COLORS.Gray,
+  //           });
+  //         });
+  //         return;
+  //       }
+  //       Room.game.setState("curvePass");
 
-        // Inform team members of the command
-        offensePlayers.forEach((teamPlayer) => {
-          Chat.send(`${ICONS.Frisbee} Curve pass enabled`, {
-            id: teamPlayer.id,
-            color: COLORS.Gray,
-          });
-        });
-      },
-    },
-  ],
-  [
-    "sette",
-    {
-      showCommand: false,
-      permissions: {
-        adminLevel: 0,
-        onlyOffense: true,
-        onlyDuringNoPlay: true,
-        canRunDuringTwoPointAttempt: true,
-      },
-      run(player) {
-        // VALIDATION
-        const tightEndId = Room.game.getTightEnd();
+  //       // Inform team members of the command
+  //       offensePlayers.forEach((teamPlayer) => {
+  //         Chat.send(`${ICONS.Frisbee} Curve pass enabled`, {
+  //           id: teamPlayer.id,
+  //           color: COLORS.Gray,
+  //         });
+  //       });
+  //     },
+  //   },
+  // ],
+  // [
+  //   "sette",
+  //   {
+  //     showCommand: false,
+  //     permissions: {
+  //       adminLevel: 0,
+  //       onlyOffense: true,
+  //       onlyDuringNoPlay: true,
+  //       canRunDuringTwoPointAttempt: true,
+  //     },
+  //     run(player) {
+  //       // VALIDATION
+  //       const tightEndId = Room.game.getTightEnd();
 
-        const existsAlreadyTightEnd = tightEndId !== null;
+  //       const existsAlreadyTightEnd = tightEndId !== null;
 
-        if (existsAlreadyTightEnd) {
-          // TE player is using TE command, that means remove his TE
-          if (tightEndId === player.id) {
-            Room.game.setTightEnd(null);
-            Chat.send(`You are no longer the Tight End`, {
-              color: COLORS.Gray,
-              id: player.id,
-            });
-            return;
-          }
+  //       if (existsAlreadyTightEnd) {
+  //         // TE player is using TE command, that means remove his TE
+  //         if (tightEndId === player.id) {
+  //           Room.game.setTightEnd(null);
+  //           Chat.send(`You are no longer the Tight End`, {
+  //             color: COLORS.Gray,
+  //             id: player.id,
+  //           });
+  //           return;
+  //         }
 
-          // Otherwise, inform them there can only be one TE per team
-          const tightEndProfile = Room.players.playerCollection.get(tightEndId);
+  //         // Otherwise, inform them there can only be one TE per team
+  //         const tightEndProfile = Room.players.playerCollection.get(tightEndId);
 
-          if (!tightEndProfile) throw Error("Could not find tight end profile");
+  //         if (!tightEndProfile) throw Error("Could not find tight end profile");
 
-          throw new GameCommandError(
-            `${tightEndProfile.shortName} is already the Tight End`,
-            true
-          );
-        }
+  //         throw new GameCommandError(
+  //           `${tightEndProfile.shortName} is already the Tight End`,
+  //           true
+  //         );
+  //       }
 
-        Room.game.setTightEnd(player.id);
+  //       Room.game.setTightEnd(player.id);
 
-        // We probs should inform all the team members
-        const offensePlayers = Room.game.players.getOffense();
-        offensePlayers.forEach((teamPlayer) => {
-          Chat.send(`${ICONS.Lightning} ${player.shortName} is the Tight End`, {
-            id: teamPlayer.id,
-            color: COLORS.Gray,
-          });
-        });
-      },
-    },
-  ],
+  //       // We probs should inform all the team members
+  //       const offensePlayers = Room.game.players.getOffense();
+  //       offensePlayers.forEach((teamPlayer) => {
+  //         Chat.send(`${ICONS.Lightning} ${player.shortName} is the Tight End`, {
+  //           id: teamPlayer.id,
+  //           color: COLORS.Gray,
+  //         });
+  //       });
+  //     },
+  //   },
+  // ],
   [
     "setfg",
     {

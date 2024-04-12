@@ -2,7 +2,6 @@ import BallContact from "../../classes/BallContact";
 import PlayerContact from "../../classes/PlayerContact";
 import { PlayerStatQuery } from "../../classes/PlayerStats";
 import {
-  PlayableTeamId,
   PlayerObject,
   PlayerObjFlat,
   Position,
@@ -11,7 +10,7 @@ import Ball from "../../roomStructures/Ball";
 import Chat from "../../roomStructures/Chat";
 import Room from "../../roomStructures/Room";
 import GameReferee from "../../structures/GameReferee";
-import MapReferee from "../../structures/MapReferee";
+// import MapReferee from "../../structures/MapReferee";
 import ICONS from "../../utils/Icons";
 import { MapSectionName } from "../../utils/MapSectionFinder";
 import BasePlay from "../BasePlay";
@@ -203,14 +202,17 @@ export default abstract class SnapEvents extends BasePlay<SnapStore> {
   }
 
   onBallCarrierContactOffense(playerContact: PlayerContact) {
-    const { player, playerPosition, ballCarrierPosition } = playerContact;
+    // const { player, playerPosition, ballCarrierPosition } = playerContact;
+    const { player } = playerContact;
 
     // Verify that its a legal run
-    const isBehindQuarterBack = MapReferee.checkIfBehind(
-      playerPosition.x,
-      ballCarrierPosition.x,
-      player.team as PlayableTeamId
-    );
+    // const isBehindQuarterBack = MapReferee.checkIfBehind(
+    //   playerPosition.x,
+    //   ballCarrierPosition.x,
+    //   player.team as PlayableTeamId
+    // );
+
+    const isBehindQuarterBack = true;
 
     // If its a legal run, handle it, otherwise its a penalty
     if (isBehindQuarterBack) return this._handleRun(playerContact);
